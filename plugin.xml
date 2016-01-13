@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<plugin xmlns="http://cordova.apache.org/ns/plugins/1.0"
+        id="com.appenza.cordova.plugins.classroom"
+        version="1.0.0">
+
+    <name>Aurora Class</name>
+
+    <keywords>cordova,android, aurora,classroom</keywords>
+
+    <description>
+        Plugin to be used in the classroom app
+    </description>
+
+    <license>MIT</license>
+
+    <author>Appenza Team</author>
+
+    <engines>
+        <engine name="cordova" version=">=3.0"/>
+    </engines>
+
+    <js-module src="www/aurora-class.js" name="AuroraClass">
+        <clobbers target="appenza.aurora.class"/>
+    </js-module>
+
+    <!-- android -->
+    <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/widget">
+            <preference name="fullscreen" value="true"/>
+            <feature name="AuroraClass">
+                <param name="android-package" value="com.appenza.classroom.AuroraClass"/>
+                <param name="onload" value="true"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+	        <activity android:name=".MainActivity" >
+            		<intent-filter>
+		                <action android:name="android.intent.action.MAIN" />
+                		<category android:name="android.intent.category.LAUNCHER" />
+	        	 </intent-filter>
+	        </activity>
+        	<activity android:name=".StudentList" />
+		<activity android:name=".CollectAnswers"/>
+	        <activity android:name=".SubmitScoreSheet"/>
+        	<activity android:name=".TakeQuiz"/>
+		<service android:name=".ReceiveFile" android:enabled="true" android:exported="true"></service>
+		<service android:name=".SendFile" android:enabled="true" android:exported="true"></service>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest">
+	    <uses-feature android:name="android.hardware.wifi"/>
+	    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+	    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+	    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+	    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+	    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+	    <uses-permission android:name="android.permission.READ_INTERNAL_STORAGE" />
+	    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	    <uses-permission android:name="android.permission.ACCESS" />
+	    <uses-permission android:name="android.permission.INTERNET" />
+        </config-file>
+
+        <source-file src="res/values/styles.xml"
+                     target-dir="res/values"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/ReceiveFile.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+    
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/SendFile.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/SubmitScoreSheet.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/StudentItem.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/StudentAdapter.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/Server.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/QuizModel.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/StudentList.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/CollectAnswers.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/TakeQuiz.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/StudentAdapter.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/MainActivity.java"
+                     target-dir="src/main/java/com/appenza/classroom/"/>
+
+        <!-- 
+            ant.properties is loaded prior to project properties and does not exist in default cordova android projects 
+            so we will hijack that for setting the proper SDK for Google Glass
+        -->
+        <resource-file src="resources/gradle.properties"
+                     target=""/>
+    </platform>
+</plugin>
