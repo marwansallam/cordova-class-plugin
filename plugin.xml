@@ -96,7 +96,7 @@
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/TakeQuiz.java"
                      target-dir="src/main/java/com/appenza/classroom/"/>
 
-        <source-file src="src/android/com/appenza/cordova/plugin/classroom/MainActivity.java"
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/AuroraClassActivity.java"
                      target-dir="src/main/java/com/appenza/classroom/"/>
 
         <!-- 
