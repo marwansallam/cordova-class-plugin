@@ -35,7 +35,7 @@
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="/manifest/application">
-	        <activity android:name=".MainActivity" >
+	        <activity android:name=".AuroraClassActivity" >
             		<intent-filter>
 		                <action android:name="android.intent.action.MAIN" />
                 		<category android:name="android.intent.category.LAUNCHER" />
