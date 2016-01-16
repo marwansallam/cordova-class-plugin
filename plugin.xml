@@ -67,37 +67,37 @@
                      target-dir="res/values"/>
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/ReceiveFile.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
     
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/SendFile.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/SubmitScoreSheet.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/StudentItem.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/StudentAdapter.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/Server.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/QuizModel.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/StudentList.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/CollectAnswers.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/TakeQuiz.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/AuroraClassActivity.java"
-                     target-dir="src/main/java/com/appenza/classroom/"/>
+                     target-dir="src/com/appenza/classroom/"/>
 
         <!-- 
             ant.properties is loaded prior to project properties and does not exist in default cordova android projects 
