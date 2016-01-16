@@ -1,4 +1,4 @@
-package com.lms.appenza.hotspotfiletransfer;
+package com.appenza.classroom;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,20 +11,11 @@ import java.util.List;
 
 
 public class StudentAdapter extends ArrayAdapter<StudentItem> {
-
     Context context;
 
     public StudentAdapter(Context context, int resource, int textViewResourceId, List<StudentItem> objects) {
         super(context, resource, textViewResourceId, objects);
         this.context = context;
-    }
-
-    class ViewHolder {
-        CheckedTextView checkedTextView;
-
-        public CheckedTextView getCheckedTextView() {
-            return checkedTextView;
-        }
     }
 
     @Override
@@ -53,6 +44,14 @@ public class StudentAdapter extends ArrayAdapter<StudentItem> {
         holder.checkedTextView.setChecked(student.isChecked());
         holder.checkedTextView.setText(student.getName());
         return convertView;
+    }
+
+    class ViewHolder {
+        CheckedTextView checkedTextView;
+
+        public CheckedTextView getCheckedTextView() {
+            return checkedTextView;
+        }
     }
 
 }

@@ -1,11 +1,11 @@
-package com.lms.appenza.hotspotfiletransfer;
+package com.appenza.classroom;
 
 public class StudentItem {
     String studentName;
     String studentMAC;
     boolean checked;
 
-    public StudentItem(String name, String mac, boolean checked,boolean receivedQuiz) {
+    public StudentItem(String name, String mac, boolean checked, boolean receivedQuiz) {
         this.studentName = name;
         this.studentMAC = mac;
         this.checked = checked;

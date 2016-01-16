@@ -1,5 +1,6 @@
-package com.lms.appenza.hotspotfiletransfer;
+package com.appenza.classroom;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,26 +14,26 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class StudentList extends AppCompatActivity {
+public class StudentList extends Activity {
 
     public static final String LOG_TAG = "HOTSPOTMM";
     static ArrayList<String> checkedMacAddress;
     static List<ScanResult> scanResults;
-    ListView onlineList, offlineList;
     static Map<String, String> json = new HashMap<>();
-    StudentAdapter onlineAdapter, offlineAdapter;
-    StudentItem student;
     static WifiConfiguration conf;
     static WifiManager manager;
+    ListView onlineList, offlineList;
+    StudentAdapter onlineAdapter, offlineAdapter;
+    StudentItem student;
     boolean isStudentOnline;
     ProgressDialog progressDialog;
-    ArrayList<StudentItem> studentsReceivedQuiz;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,6 @@ public class StudentList extends AppCompatActivity {
         json.put("huawei", "58:2a:f7:a9:7f:20");
         json.put("lenovo Large", "ee:89:f5:3c:f7:3c");
         json.put("Samsung", "24:4b:81:9e:e9:c2");
-
         manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         scanResults = new ArrayList<ScanResult>();
         conf = new WifiConfiguration();
@@ -56,17 +56,14 @@ public class StudentList extends AppCompatActivity {
                 scanResults = manager.getScanResults();
             }
         }, new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION));
-
         onlineList = (ListView) findViewById(R.id.online_list);
         offlineList = (ListView) findViewById(R.id.offline_list);
-
         onlineAdapter = new StudentAdapter(this, R.layout.list_item, R.id.checkedText, new ArrayList<StudentItem>());
         offlineAdapter = new StudentAdapter(this, R.layout.list_item, R.id.checkedText, new ArrayList<StudentItem>());
         onlineList.setAdapter(onlineAdapter);
         offlineList.setAdapter(offlineAdapter);
         scan();
     }
-
 
     public void scanBtn(View view) {
         scan();
@@ -77,12 +74,10 @@ public class StudentList extends AppCompatActivity {
             manager.setWifiEnabled(true);
 
         manager.startScan();
-
         Log.d(LOG_TAG, "size ---> " + scanResults.size());
 
         for (int sr = 0; sr < scanResults.size(); sr++)
             Log.d(LOG_TAG, sr + " -----> " + scanResults.get(sr).SSID + " : " + scanResults.get(sr).BSSID);
-
         //Adding Students to Online and Offline Lists
         onlineAdapter.clear();
         offlineAdapter.clear();
@@ -91,13 +86,13 @@ public class StudentList extends AppCompatActivity {
             String studentMAC = entry.getValue();
             for (int j = 0; j < scanResults.size(); j++) {
                 if (studentMAC.equals(scanResults.get(j).BSSID)) {
-                    onlineAdapter.add(new StudentItem(entry.getKey(), entry.getValue(), false ,false));
+                    onlineAdapter.add(new StudentItem(entry.getKey(), entry.getValue(), false, false));
                     isStudentOnline = true;
                     break;
                 }
             }
             if (!isStudentOnline)
-                offlineAdapter.add(new StudentItem(entry.getKey(), entry.getValue(), false , false));
+                offlineAdapter.add(new StudentItem(entry.getKey(), entry.getValue(), false, false));
         }
         onlineAdapter.notifyDataSetChanged();
         offlineAdapter.notifyDataSetChanged();
@@ -126,10 +121,9 @@ public class StudentList extends AppCompatActivity {
         startService(intent);
     }
 
-
     public void collectAnswers(View view) {
-
         startActivity(new Intent(this, CollectAnswers.class));
 
     }
+
 }

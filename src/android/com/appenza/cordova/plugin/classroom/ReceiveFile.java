@@ -1,6 +1,5 @@
-package com.lms.appenza.hotspotfiletransfer;
+package com.appenza.classroom;
 
-import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
@@ -16,15 +15,11 @@ import android.widget.Toast;
 import net.lingala.zip4j.core.ZipFile;
 import net.lingala.zip4j.exception.ZipException;
 
-import java.io.BufferedOutputStream;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
+import java.io.BufferedInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.lang.reflect.Method;
 import java.net.ServerSocket;
@@ -32,21 +27,31 @@ import java.net.Socket;
 import java.nio.charset.Charset;
 
 public class ReceiveFile extends Service {
+    String LOG_TAG = "HOTSPOTMM";
+    WifiManager manager;
+    ServerSocket serverSocket = null;
+    boolean fileReceived = false;
     public ReceiveFile() {
     }
 
-    String LOG_TAG = "HOTSPOTMM";
-    ProgressDialog progress;
-    WifiManager manager;
-    ServerSocket serverSocket = null;
-    boolean fileReceived =false;
+    public static void unzip(String source, String destination, String password) {
+        try {
+            ZipFile zipFile = new ZipFile(source);
+            if (zipFile.isEncrypted()) {
+                zipFile.setPassword(password);
+            }
+            zipFile.extractAll(destination);
+        } catch (ZipException e) {
+            e.printStackTrace();
+        }
+    }
 
     @Override
     public void onCreate() {
         super.onCreate();
         manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
         WifiConfiguration netConfig = new WifiConfiguration();
-        netConfig.SSID = MainActivity.studentSSID;
+        netConfig.SSID = AuroraClassActivity.studentSSID;
         Log.d(LOG_TAG, netConfig.SSID + "--- this is SSID");
         netConfig.allowedAuthAlgorithms.set(WifiConfiguration.AuthAlgorithm.OPEN);
         setWifiApEnabled(netConfig, true);
@@ -77,19 +82,6 @@ public class ReceiveFile extends Service {
         }
     }
 
-    public static void unzip(String source , String destination, String password){
-
-        try {
-            ZipFile zipFile = new ZipFile(source);
-            if (zipFile.isEncrypted()) {
-                zipFile.setPassword(password);
-            }
-            zipFile.extractAll(destination);
-        } catch (ZipException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public boolean stopService(Intent name) {
         try {
@@ -117,7 +109,6 @@ public class ReceiveFile extends Service {
         this.stopSelf();
     }
 
-
     private class FileServerTask extends AsyncTask<Void, Void, File> {
 
         public static final String LOG_TAG = "HOTSPOTMM server";
@@ -130,24 +121,17 @@ public class ReceiveFile extends Service {
                 Socket client = serverSocket.accept();
                 Log.d(LOG_TAG, manager.getDhcpInfo().toString());
                 Log.d(LOG_TAG, "Manager All Info : " + manager.toString());
-
-
-                InputStream inputStream = client.getInputStream();
-                OutputStream outputStream2 = client.getOutputStream();
-                DataOutputStream dos = new DataOutputStream(outputStream2);
-                BufferedOutputStream put = new BufferedOutputStream(client.getOutputStream());
-                BufferedReader st = new BufferedReader(new InputStreamReader(client.getInputStream()));
-                String filename = st.readLine();
-
-
-              //  MainActivity.teacherMacAddress = st.readLine();
-                Log.d(LOG_TAG, "Teacher Mac Address: " + MainActivity.teacherMacAddress);
-
-//                int splitIndex = s.indexOf("@");
-//                String fileName = s.substring(0,splitIndex);
-
-                // String fileName = dis.readLine();
-                File file = new File(Environment.getExternalStorageDirectory() + "/HotspotSharedFiles/" + filename);
+                DataOutputStream dos = new DataOutputStream(client.getOutputStream());
+                BufferedInputStream inputStream = new BufferedInputStream(client.getInputStream());
+                byte[] dataBuffer = new byte[1000];
+                inputStream.read(dataBuffer);
+                String header = new String(dataBuffer, Charset.forName("UTF-8"));
+                String filename = header.substring(0, header.indexOf("</FILENAME>"));
+                int size = Integer.parseInt(header.split("<Size>")[1]);
+                Log.d(LOG_TAG, size + " bytes will be sent to you ");
+                Log.d(LOG_TAG, header + " is the file name received");
+                Log.d(LOG_TAG, "Teacher Mac Address: " + AuroraClassActivity.teacherMacAddress);
+                File file = new File(Environment.getExternalStorageDirectory() + "/HotspotSharedFiles/ " + filename);
                 Log.d(LOG_TAG, "Filename is : " + filename);
                 File dirs = new File(file.getParent());
                 if (!dirs.exists())
@@ -156,59 +140,48 @@ public class ReceiveFile extends Service {
                     Log.d(LOG_TAG, "file created");
                 else
                     Log.d(LOG_TAG, "file not created");
-
-                OutputStream outputStream = new FileOutputStream(file);
-           //     dos.writeUTF("<Appenza:DoneReceiving>");
-                String fileData = st.readLine();
-                outputStream.write(fileData.getBytes("UTF-8"));
-                Log.d(LOG_TAG,"File Data : "+fileData);
-
-//                if (copyFile(inputStream, outputStream,dos)) {
-//                    Log.d(LOG_TAG, "File received");
-//
-//                } else {
-//                    Log.d(LOG_TAG, "File not copied");
-//                }
+                FileOutputStream outputStream = new FileOutputStream(file);
+                if (receiveFile(inputStream, outputStream, size)) {
+                    Log.d(LOG_TAG, "File received");
+                    String source = file.getPath();
+                    String destination = file.getParent() + "/ZipFiles/";
+                    String password = "password";
+                    unzip(source, destination, password);
+                    dos.flush();
+                } else {
+                    Log.d(LOG_TAG, "File not received");
+                    dos.writeUTF("<FTR>");
+                    dos.flush();
+                }
                 client.close();
                 serverSocket.close();
                 Log.d(LOG_TAG, "Server Conn closed");
                 return file;
-
-            } catch (IOException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
                 Log.e(LOG_TAG, e.toString());
             }
             return null;
-
         }
 
-<<<<<<< HEAD
-        private boolean copyFile(InputStream inputStream, OutputStream out ,DataOutputStream dos) {
-           int totalLen =0;
-            byte[] buf = new byte[100];
-=======
-        private boolean copyFile(InputStream inputStream, OutputStream out) {
-            byte[] buf = new byte[1];
->>>>>>> 7790c096bb0d4f0e6d8f40e276cf454ce36858f9
+        private boolean receiveFile(BufferedInputStream inputStream, OutputStream out, int size) {
+            int totalLen = 0;
+            byte[] buf = new byte[32768];
             int len;
-
             try {
                 while ((len = inputStream.read(buf)) != -1) {
                     out.write(buf, 0, len);
-                    totalLen+=len;
-                    String v = new String( buf, Charset.forName("UTF-8"));
-                    Log.d(LOG_TAG,totalLen + " bytes received");
-                    Log.d(LOG_TAG,v);
-//                    dos.writeUTF("<ACK_" + len+">");
+                    totalLen += len;
+                    if (totalLen >= size)
+                        break;
+                    String v = new String(buf, Charset.forName("UTF-8"));
                     Log.d(LOG_TAG, totalLen + " bytes received");
-//
-//                    if(v.contains("<EOF>")) {
-//                        dos.writeUTF("<Appenza:DoneReceiving>");
-//                        break;
-//                    }
+                    Log.d(LOG_TAG, v);
                 }
-//                out.close();
-//                inputStream.close();
+                out.flush();
+                out.close();
+                inputStream.close();
+
             } catch (IOException e) {
                 Log.d(LOG_TAG, e.toString());
                 return false;
@@ -218,26 +191,15 @@ public class ReceiveFile extends Service {
 
         @Override
         protected void onPostExecute(File f) {
-//            Log.d(LOG_TAG, "File Uri: " + Uri.fromFile(f));
-
-            MainActivity.waitingForQuiz.setVisibility(View.INVISIBLE);
-            if(fileReceived) {
-                Toast.makeText(getApplicationContext(), "Teacher MAC : " + MainActivity.teacherMacAddress, Toast.LENGTH_SHORT).show();
+            AuroraClassActivity.waitingForQuiz.setVisibility(View.INVISIBLE);
+            if (fileReceived) {
+                Toast.makeText(getApplicationContext(), "Teacher MAC : " + AuroraClassActivity.teacherMacAddress, Toast.LENGTH_SHORT).show();
                 Toast.makeText(getApplicationContext(), "Quiz Received", Toast.LENGTH_SHORT).show();
             }
-            MainActivity.receiveBtn.setText("Start Receiving");
-
+            AuroraClassActivity.receiveBtn.setText("Start Receiving");
             if (f != null) {
                 Log.d(LOG_TAG, this.getStatus().toString() + "---- Stopping Service !!!!!");
                 setWifiApEnabled(null, false);
-
-//
-
-                String source = f.getPath();
-                String destination = f.getParent()+"/ZipFiles/";
-                String password = "password";
-                unzip(source,destination,password);
-
                 stopSelf();
 
             }
