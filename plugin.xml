@@ -65,9 +65,8 @@
 
         <resource-file src="res/values/styles.xml"
                      target-dir="res/values"/>
-
+	<framework src="src/android/lib/extras.gradle" custom="true" type="gradleReference" />
    	<resource-file src="src/android/lib/zip4j_1.3.2.jar" target-dir="libs" framework="true"/>
-	<framework src="src/android/lib/extras.gradle" custom="true" type="gradleReference" /> 
 
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/ReceiveFile.java"
                      target-dir="src/com/appenza/classroom/"/>
