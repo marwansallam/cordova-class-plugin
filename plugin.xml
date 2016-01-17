@@ -63,18 +63,18 @@
 	    <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
 
-        <resource-file src="res/values/styles.xml" target-dir="res/values/"/>
-        <resource-file src="res/values/strings.xml" target-dir="res/values/"/>
-        <resource-file src="res/values/colors.xml" target-dir="res/values/"/>
-        <resource-file src="res/values/dimens.xml" target-dir="res/values/"/>
+        <resource-file src="res/values/styles.xml" target="res/values/styles.xml"/>
+        <resource-file src="res/values/strings.xml" target="res/values/strings.xml"/>
+        <resource-file src="res/values/colors.xml" target="res/values/colors.xml"/>
+        <resource-file src="res/values/dimens.xml" target="res/values/dimens.xml"/>
 
-	<resource-file src="res/layout/activity_aurora_class.xml" target-dir="res/layout/"/>
-	<resource-file src="res/layout/activity_collect_answers.xml" target-dir="res/layout/"/>
-	<resource-file src="res/layout/activity_receiving.xml" target-dir="res/layout/"/>
-	<resource-file src="res/layout/activity_student_list.xml" target-dir="res/layout/"/>
-	<resource-file src="res/layout/activity_submit_score_sheet.xml" target-dir="res/layout/"/>
-	<resource-file src="res/layout/activity_take_quiz.xml" target-dir="res/layout/"/>
-	<resource-file src="res/layout/list_item.xml" target-dir="res/layout/"/>
+	<resource-file src="res/layout/activity_aurora_class.xml" target="res/layout/activity_aurora_class.xml"/>
+	<resource-file src="res/layout/activity_collect_answers.xml" target="res/layout/activity_collect_answers.xml"/>
+	<resource-file src="res/layout/activity_receiving.xml" target="res/layout/activity_receiving.xml"/>
+	<resource-file src="res/layout/activity_student_list.xml" target="res/layout/activity_student_list.xml"/>
+	<resource-file src="res/layout/activity_submit_score_sheet.xml" target="res/layout/activity_submit_score_sheet.xml"/>
+	<resource-file src="res/layout/activity_take_quiz.xml" target="res/layout/activity_take_quiz.xml"/>
+	<resource-file src="res/layout/list_item.xml" target="res/layout/list_item.xml"/>
 
 	<framework src="src/android/lib/extras.gradle" custom="true" type="gradleReference" />
    	<source-file src="src/android/lib/zip4j_1.3.2.jar" target-dir="libs" framework="true"/>
