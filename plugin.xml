@@ -29,7 +29,7 @@
         <config-file target="res/xml/config.xml" parent="/widget">
             <preference name="fullscreen" value="true"/>
             <feature name="AuroraClass">
-                <param name="android-package" value="com.appenza.classroom.AuroraClass"/>
+                <param name="android-package" value="com.appenza.classroom.cordova.plugin.AuroraClassPlugin"/>
                 <param name="onload" value="true"/>
             </feature>
         </config-file>
@@ -96,8 +96,14 @@
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/TakeQuiz.java"
                      target-dir="src/com/appenza/classroom/"/>
 
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/ConnectionManager.java"
+                     target-dir="src/com/appenza/classroom/"/>
+
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/AuroraClassActivity.java"
                      target-dir="src/com/appenza/classroom/"/>
+
+        <source-file src="src/android/com/appenza/cordova/plugin/classroom/AuroraClassPlugin.java"
+                     target-dir="src/com/appenza/classroom/cordova/plugin/"/>
 
         <!-- 
             ant.properties is loaded prior to project properties and does not exist in default cordova android projects 
