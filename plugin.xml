@@ -64,6 +64,10 @@
         </config-file>
 
         <resource-file src="res/values/styles.xml" target-dir="res/values"/>
+        <resource-file src="res/values/strings.xml" target-dir="res/values"/>
+        <resource-file src="res/values/colors.xml" target-dir="res/values"/>
+        <resource-file src="res/values/dimens.xml" target-dir="res/values"/>
+
 	<resource-file src="res/layouts/activity_aurora_class.xml" target-dir="res/layouts"/>
 	<resource-file src="res/layouts/activity_collect_answers.xml" target-dir="res/layouts"/>
 	<resource-file src="res/layouts/activity_receiving.xml" target-dir="res/layouts"/>
