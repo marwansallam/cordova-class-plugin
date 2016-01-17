@@ -54,15 +54,6 @@ public class ConnectionManager extends Service {
 
     }
 
-
-    public static boolean connectBySSID(String SSID){
-        return false;
-    }
-
-    public static boolean connectByMacAddress(String MacAddress){
-        return false;
-    }
-
     public static void scan() {
         if (!manager.isWifiEnabled())
             manager.setWifiEnabled(true);

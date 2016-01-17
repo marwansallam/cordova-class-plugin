@@ -25,7 +25,7 @@ public class AuroraClassActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_aurora_class);
 
         Intent connectionManagerIntent = new Intent(this, ConnectionManager.class);
         startService(connectionManagerIntent);
@@ -86,7 +86,7 @@ public class AuroraClassActivity extends Activity {
     }
 
     public void goToTakeQuiz(View view) {
-        startActivity(new Intent(this, TakeQuiz.class));
+        startActivity(new Intent(this, MainActivity.class));
     }
 
     public void lockApp(View view) {

@@ -1,6 +1,7 @@
-package com.appenza.classroom;
+package com.appenza.classroom.cordova.plugin;
 
 import android.speech.RecognizerIntent;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;

@@ -1,3 +1,6 @@
 <resources>
-    <string name="app_name">HotspotFileTransfer</string>
+    <string name="app_name">Aurora Class</string>
+    <string name="activity_name">Take Quiz</string>
+    <string name="launcher_name">Aurora Class</string>
+
 </resources>
