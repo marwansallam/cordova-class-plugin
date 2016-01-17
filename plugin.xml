@@ -63,7 +63,15 @@
 	    <uses-permission android:name="android.permission.INTERNET" />
         </config-file>
 
-        <source-file src="res/values/styles.xml" target-dir="res/values"/>
+        <resource-file src="res/values/styles.xml" target-dir="res/values"/>
+	<resource-file src="res/layouts/activity_aurora_class.xml" target-dir="res/layouts"/>
+	<resource-file src="res/layouts/activity_collect_answers.xml" target-dir="res/layouts"/>
+	<resource-file src="res/layouts/activity_receiving.xml" target-dir="res/layouts"/>
+	<resource-file src="res/layouts/activity_student_list.xml" target-dir="res/layouts"/>
+	<resource-file src="res/layouts/activity_submit_score_sheet.xml" target-dir="res/layouts"/>
+	<resource-file src="res/layouts/activity_take_quiz.xml" target-dir="res/layouts"/>
+	<resource-file src="res/layouts/list_item.xml" target-dir="res/layouts"/>
+
 	<framework src="src/android/lib/extras.gradle" custom="true" type="gradleReference" />
    	<source-file src="src/android/lib/zip4j_1.3.2.jar" target-dir="libs" framework="true"/>
 

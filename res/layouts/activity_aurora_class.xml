@@ -1,0 +1,68 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.lms.appenza.classroom.MainActivity">
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:onClick="send"
+        android:id="@+id/button"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/receiveBtn"
+        android:layout_alignStart="@+id/receiveBtn"
+        android:layout_alignRight="@+id/receiveBtn"
+        android:layout_alignEnd="@+id/receiveBtn" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Start Receiving"
+        android:onClick="receive"
+        android:id="@+id/receiveBtn"
+        android:layout_below="@+id/button"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Waiting for Quiz ...."
+        android:id="@+id/waitForQuizTxt"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go TO Submit"
+        android:onClick="goToSubmit"
+        android:id="@+id/goToSubmitBtn"
+        android:layout_alignRight="@+id/receiveBtn"
+        android:layout_alignEnd="@+id/receiveBtn"
+        android:layout_below="@+id/receiveBtn"
+        android:layout_alignLeft="@+id/receiveBtn"
+        android:layout_alignStart="@+id/receiveBtn" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Quiz"
+        android:id="@+id/takeQuizBtn"
+        android:onClick="goToTakeQuiz"
+        android:layout_below="@+id/goToSubmitBtn"
+        android:layout_alignRight="@+id/goToSubmitBtn"
+        android:layout_alignEnd="@+id/goToSubmitBtn"
+        android:layout_alignLeft="@+id/goToSubmitBtn"
+        android:layout_alignStart="@+id/goToSubmitBtn" />
+
+
+
+</RelativeLayout>
