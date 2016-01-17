@@ -66,6 +66,8 @@
         <source-file src="res/values/styles.xml"
                      target-dir="res/values"/>
 
+   	<source-file src="src/android/lib/zip4j_1.3.2.jar" target-dir="libs" framework="true"/>       
+
         <source-file src="src/android/com/appenza/cordova/plugin/classroom/ReceiveFile.java"
                      target-dir="src/com/appenza/classroom/"/>
     
